@@ -5,6 +5,7 @@
 # Description
 
 RSS is a specialized format designed to describe news feeds, article announcements and other materials.
+## [RSS aggregator](https://frontend-project-11-khaki.vercel.app/)
 
 # Installation:
 
@@ -13,7 +14,7 @@ RSS is a specialized format designed to describe news feeds, article announcemen
 
  $ npm link
 ```
-System requirements :
+## System requirements:
 
 ```
  Node.js 21
