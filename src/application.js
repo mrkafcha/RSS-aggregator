@@ -107,11 +107,9 @@ export default () => {
     const { id } = event.target.dataset;
     if (!watchedState.ulOpened.includes(id)) {
       watchedState.ulOpened.push(id);
-      
     }
     if (id) {
       watchedState.openIdModal = id;
     }
-
   });
 };
