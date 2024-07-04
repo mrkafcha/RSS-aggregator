@@ -4,13 +4,13 @@ import url from 'url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const filename = url.fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 const config = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(dirname, 'dist'),
   },
   devServer: {
     open: true,
