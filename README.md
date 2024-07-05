@@ -5,7 +5,7 @@
 # Description
 
 RSS is a specialized format designed to describe news feeds, article announcements and other materials.
-## [RSS aggregator](https://frontend-project-11-52g9kszv7-mrkafchas-projects.vercel.app/)
+## [RSS aggregator](https://frontend-project-11-alpha-orpin.vercel.app/)
 
 # Installation:
 
