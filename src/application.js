@@ -30,13 +30,12 @@ const checkNewPosts = (watchedState, interval = 5000) => {
 
   const promise = feeds.map((feed) => axios.get(proxyLoad(feed.url))
     .then((response) => {
-      const { posts } = parse(response.data.contents);
+      const { feed ,posts } = parse(response.data.contents);
       const newPosts = posts.filter((post) => (
         !watchedState.posts.some((item) => item.title === post.title)
       ));
+      newPosts.forEach((post) => { post.id = _.uniqueId(); });
       watchedState.posts.unshift(...newPosts);
-      // console.log('я вызвался');
-      // console.log(state);
     })
     .catch((e) => {
       console.log(e);
@@ -57,7 +56,6 @@ const getFeedAndPosts = (watchedState, url) => {
       watchedState.loadingProcces.status = 'successfully';
       watchedState.feeds.unshift(feed);
       watchedState.posts.unshift(...posts);
-      // console.log(state);
     })
     .catch((e) => {
       watchedState.loadingProcces.error = (e.isAxiosError) ? 'networkError' : e.message;

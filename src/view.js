@@ -151,7 +151,6 @@ const renderPosts = (state, elements, i18n) => {
   const listGroup = posts.querySelector('ul');
   listGroup.innerHTML = '';
   const items = getItems(state, i18n);
-  console.log(items);
   listGroup.append(...items);
   posts.append(cardMain);
 };
