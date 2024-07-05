@@ -1,3 +1,10 @@
+const renderFormInvalid = (input, feedback, button) => {
+  feedback.classList.add('text-danger');
+  input.classList.add('is-invalid');
+  input.removeAttribute('disabled');
+  button.removeAttribute('disabled');
+};
+
 const renderForm = (state, elements, i18n, value) => {
   const { input, feedback, button } = elements;
   switch (value) {
@@ -10,10 +17,7 @@ const renderForm = (state, elements, i18n, value) => {
       break;
     case 'failed':
       feedback.textContent = i18n.t(state.form.error);
-      feedback.classList.add('text-danger');
-      input.classList.add('is-invalid');
-      input.removeAttribute('disabled');
-      button.removeAttribute('disabled');
+      renderFormInvalid(input, feedback, button);
       break;
 
     default:
@@ -24,21 +28,19 @@ const renderForm = (state, elements, i18n, value) => {
 const renderLoadingProcces = (state, elements, i18n, value) => {
   const { input, feedback, button } = elements;
   switch (value) {
-    case 'succsess':
+    case 'successfully':
       feedback.textContent = i18n.t('successfully');
       input.removeAttribute('disabled');
       button.removeAttribute('disabled');
       feedback.classList.remove('text-danger');
       feedback.classList.add('text-success');
+      input.classList.remove('is-invalid');
       input.value = '';
       input.focus();
       break;
     case 'failed':
       feedback.textContent = i18n.t(state.loadingProcces.error);
-      feedback.classList.add('text-danger');
-      input.classList.add('is-invalid');
-      input.removeAttribute('disabled');
-      button.removeAttribute('disabled');
+      renderFormInvalid(input, feedback, button);
       break;
 
     default:
@@ -94,24 +96,13 @@ const renderModal = (state, element) => {
   const { modal } = element;
   const modalTitle = modal.querySelector('.modal-title');
   const modalBody = modal.querySelector('.modal-body');
-  const [postOpen] = state.posts.filter((post) => post.id === state.openIdModal);
+  const postOpen = state.posts.find((post) => post.id === state.openIdModal);
 
   modalTitle.textContent = postOpen.title;
   modalBody.innerHTML = `<p>${postOpen.description}</p>`;
 };
 
-const renderPosts = (state, elements, i18n) => {
-  const { posts } = elements;
-
-  if (!posts.hasChildNodes()) {
-    const card = createCard(i18n.t('posts'));
-    posts.append(card);
-  }
-  const cardMain = posts.querySelector('.card');
-  const listGroup = posts.querySelector('ul');
-
-  listGroup.innerHTML = '';
-
+const getRenderPosts = (state, i18n) => {
   const items = state.posts.map((post) => {
     const item = document.createElement('li');
     const link = document.createElement('a');
@@ -146,6 +137,20 @@ const renderPosts = (state, elements, i18n) => {
     item.append(link, button);
     return item;
   });
+  return items;
+};
+
+const renderPosts = (state, elements, i18n) => {
+  const { posts } = elements;
+
+  if (!posts.hasChildNodes()) {
+    const card = createCard(i18n.t('posts'));
+    posts.append(card);
+  }
+  const cardMain = posts.querySelector('.card');
+  const listGroup = posts.querySelector('ul');
+  listGroup.innerHTML = '';
+  const items = getRenderPosts(state, i18n);
 
   listGroup.append(...items);
   posts.append(cardMain);
