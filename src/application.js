@@ -30,7 +30,7 @@ const checkNewPosts = (watchedState, interval = 5000) => {
 
   const promise = feeds.map((feed) => axios.get(proxyLoad(feed.url))
     .then((response) => {
-      const { feed ,posts } = parse(response.data.contents);
+      const { posts } = parse(response.data.contents);
       const newPosts = posts.filter((post) => (
         !watchedState.posts.some((item) => item.title === post.title)
       ));
