@@ -102,7 +102,7 @@ const renderModal = (state, element) => {
   modalBody.innerHTML = `<p>${postOpen.description}</p>`;
 };
 
-const getRenderPosts = (state, i18n) => {
+const getItems = (state, i18n) => {
   const items = state.posts.map((post) => {
     const item = document.createElement('li');
     const link = document.createElement('a');
@@ -150,8 +150,9 @@ const renderPosts = (state, elements, i18n) => {
   const cardMain = posts.querySelector('.card');
   const listGroup = posts.querySelector('ul');
   listGroup.innerHTML = '';
-  const renderItems = getRenderPosts(state, i18n);
-  listGroup.append(...renderItems);
+  const items = getItems(state, i18n);
+  console.log(items);
+  listGroup.append(...items);
   posts.append(cardMain);
 };
 
