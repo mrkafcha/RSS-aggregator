@@ -150,9 +150,8 @@ const renderPosts = (state, elements, i18n) => {
   const cardMain = posts.querySelector('.card');
   const listGroup = posts.querySelector('ul');
   listGroup.innerHTML = '';
-  const items = getRenderPosts(state, i18n);
-
-  listGroup.append(...items);
+  const renderItems = getRenderPosts(state, i18n);
+  listGroup.append(...renderItems);
   posts.append(cardMain);
 };
 
